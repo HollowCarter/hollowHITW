@@ -20,8 +20,6 @@ import com.mojang.authlib.GameProfile;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 
-import hollowhitw.writeCSV;
-
 public class entryClient implements ClientModInitializer{
     public static final String MODID ="hollowhitw";
     public static final KeyBinding outCSV = new KeyBinding("key." + MODID + ".outCSV", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "key.categories." + MODID);

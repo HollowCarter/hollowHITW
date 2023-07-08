@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class writeCSV {
     public void writerCSV(String[] data) throws IOException {
-        String datePatern = "yyMMddkk";
+        String datePatern = "yyMMdd";
         DateFormat dateFormat = new SimpleDateFormat(datePatern);
         Date time = Calendar.getInstance().getTime();
         String today = dateFormat.format(time);
