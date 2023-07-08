@@ -40,4 +40,5 @@ replay_*.log
 *.jfr
 
 old.txt
-example_log.txt
+example_log0.txt
+example_log1.txt

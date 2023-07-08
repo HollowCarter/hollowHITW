@@ -19,7 +19,7 @@
 			"hollowhitw.ExampleMod"
 		],
 		"client": [
-			"hollowhitw.ExampleModClient"
+			"hollowhitw.entryClient"
 		]
 	},
 	"mixins": [
