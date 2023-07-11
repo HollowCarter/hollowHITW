@@ -23,23 +23,18 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 public class entryClient implements ClientModInitializer{
     public static final String MODID ="hollowhitw";
     public static final KeyBinding outCSV = new KeyBinding("key." + MODID + ".outCSV", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "key.categories." + MODID);
+    public static final KeyBinding mapT = new KeyBinding("key." + MODID + ".mapT", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_I, "key.categories." + MODID);
 
     public String message = "";
-    //Integer 
     String placemnent = "";//
-    //Integer 
     String tieS = "";//
-    String tieW ="LibertaRado";//
-    String deathRea ="Revenge";
-    //Integer 
+    String tieW ="";//
+    String deathRea ="";
     String M = "";//
-    //Integer 
     String S = "";//
-    //Integer 
     String walls = "";//
-    String map = "Beach";
-
-
+    String map = "";
+;
     @Override
     public void onInitializeClient() {
         System.out.println(MODID + " On");
@@ -50,24 +45,26 @@ public class entryClient implements ClientModInitializer{
         DateFormat dateFormat = new SimpleDateFormat(datePatern);
 
         ClientReceiveMessageEvents.GAME.register((mess, over)->{message = mess.getString();
-            if (message.contains("you were eliminated in") || message.contains(" you survived the walls")){
+            if (message.contains("you were eliminated in") || message.contains(" you survived the walls")){ // [CHAT] [?] ?? HollowCarter, you were eliminated in 16th (Score: 50?)
                 placemnent = message;
             }
-            if (message.contains("Finished in ")) {
+            if (message.contains("Finished in ")) { // [CHAT] ?? Finished in 3m 10s. [CHAT] ?? Finished in 4m. [CHAT] ?? Finished in 2s
                 M = message;
-                S = message; // [CHAT] ?? Finished in 3m 10s. [CHAT] ?? Finished in 4m.
+                S = message;
             }
+
             if (message.contains("Dodged ")){
                 walls = message; // [CHAT] ?? Dodged 33 walls.
             }
-            if (message.contains("Game Winner(s):")){
+            if (message.contains("Game Winner(s):")){ // [CHAT] [?] Game Winner(s): ?? Deliryia
                 tieW = message;
-                tieS = message; // [CHAT] Game Winners! - ?? peopleARENTREAL, ?? Sackred, ?? YeetoBorito, ?? HollowCarter
+                tieS = message; 
             }
             System.out.println(message);
         });
 
         KeyBindingHelper.registerKeyBinding(outCSV);
+        KeyBindingHelper.registerKeyBinding(mapT);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             
@@ -89,6 +86,41 @@ public class entryClient implements ClientModInitializer{
                 }
 
                 client.player.sendMessage(Text.literal("CSV updated"), false);
+            }
+
+            while (mapT.wasPressed()) {
+                
+                client.player.sendMessage(Text.literal(map), false);
+//Revenge
+//Mummy?
+//So Lonely
+//Chicken Tornado
+//Swimmy Fish
+//Hoglin
+//Feeling Hot
+//Creepy Crawlies!
+//Pillagers
+//Jack Frost
+//Hmm!
+//Eggs
+//Matrix
+//Arrow Storm
+//Sticky Shoes
+//Hot Coals
+//Sandfall
+//Springy Shoes
+//Leg Day
+//Low Gravity
+//Super Speed
+//One Punch
+//Fishing Rod
+//Cobwebs
+//Levitation Dart
+//Blast-Off
+//Hot Potato
+//Snowball Fight
+//Skill Issue
+//Glitch/Lag
             }
         });
 
