@@ -23,26 +23,49 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 public class entryClient implements ClientModInitializer{
     public static final String MODID ="hollowhitw";
     public static final KeyBinding outCSV = new KeyBinding("key." + MODID + ".outCSV", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "key.categories." + MODID);
+
+    public String message = "";
+    //Integer 
+    String placemnent = "";//
+    //Integer 
+    String tieS = "";//
+    String tieW ="LibertaRado";//
+    String deathRea ="Revenge";
+    //Integer 
+    String M = "";//
+    //Integer 
+    String S = "";//
+    //Integer 
+    String walls = "";//
+    String map = "Beach";
+
+
     @Override
     public void onInitializeClient() {
         System.out.println(MODID + " On");
 
         AtomicReference<String> playerNa = new AtomicReference<>("");
 
-        Integer placemnent = 99;
-        Integer tieS = 2;
-        String tieW ="LibertaRado";
-        String deathRea ="Revenge";
-        Integer M = 2;
-        Integer S = 59;
-        Integer walls = 33;
-        String map = "Beach";
-
         String datePatern = "yy/MM/dd";
         DateFormat dateFormat = new SimpleDateFormat(datePatern);
 
-        AtomicReference<String> message = new AtomicReference<>("");
-        ClientReceiveMessageEvents.GAME.register((mess, over)->{message.set(mess.getString());});
+        ClientReceiveMessageEvents.GAME.register((mess, over)->{message = mess.getString();
+            if (message.contains("you were eliminated in") || message.contains(" you survived the walls")){
+                placemnent = message;
+            }
+            if (message.contains("Finished in ")) {
+                M = message;
+                S = message; // [CHAT] ?? Finished in 3m 10s. [CHAT] ?? Finished in 4m.
+            }
+            if (message.contains("Dodged ")){
+                walls = message; // [CHAT] ?? Dodged 33 walls.
+            }
+            if (message.contains("Game Winner(s):")){
+                tieW = message;
+                tieS = message; // [CHAT] Game Winners! - ?? peopleARENTREAL, ?? Sackred, ?? YeetoBorito, ?? HollowCarter
+            }
+            System.out.println(message);
+        });
 
         KeyBindingHelper.registerKeyBinding(outCSV);
 
@@ -65,7 +88,7 @@ public class entryClient implements ClientModInitializer{
                 } catch (IOException e) {
                 }
 
-                client.player.sendMessage(Text.literal(playerNa+","+placemnent+","+tieS+","+tieW+","+deathRea+","+M+","+S+","+walls+","+map+","+today), false);
+                client.player.sendMessage(Text.literal("CSV updated"), false);
             }
         });
 
