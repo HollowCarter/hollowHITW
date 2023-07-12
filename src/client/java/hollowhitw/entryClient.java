@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.util.InputUtil;
@@ -16,6 +18,7 @@ import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.brigadier.arguments.StringArgumentType;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -124,5 +127,16 @@ public class entryClient implements ClientModInitializer{
             }
         });
 
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(
+                ClientCommandManager.literal("HITWstats").then(ClientCommandManager.argument("death", StringArgumentType.word())
+                .executes(context -> {
+                    deathRea = StringArgumentType.getString(context, "death");
+                    context.getSource().sendFeedback(Text.literal("T:"+ deathRea));
+                    return 0;
+                })
+                ));
+            });
+        }
     }
-}
+
