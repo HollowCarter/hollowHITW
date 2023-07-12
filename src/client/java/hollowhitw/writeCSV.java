@@ -16,7 +16,7 @@ public class writeCSV {
 
         try {
             FileWriter myWriter = new FileWriter("HITW_"+ today +".csv",true);
-            String comma = ",ENDTEST,";
+            String comma = ",";
             String newLine = System.getProperty("line.separator");
             myWriter.append(data[0]); // a for loop wasn't working for i data[i] would break mywriter and for i n=n+1 data[n] output would be the data[0]
             myWriter.append(comma);
